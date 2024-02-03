@@ -8,7 +8,7 @@ export class Questionario extends Model<Questionario> {
         autoIncrement: true,
         primaryKey: true,
     })
-    id: string;
+    id: number;
 
     @Column
     data: Date = new Date();

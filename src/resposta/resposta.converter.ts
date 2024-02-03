@@ -5,9 +5,15 @@ export class RespostaConverter {
     static toDtoList(list: Resposta[]): RespostaDto[] {
         const dtoList: RespostaDto[] = [];
         list.map(entity => {
-            const usuarioDto = new RespostaDto(entity);
-            dtoList.push(usuarioDto);
+            const respostaDto = this.toDto(entity);
+            dtoList.push(respostaDto);
         });
         return dtoList;
+    }
+
+    static toDto(resposta: Resposta): RespostaDto {
+        let dto = new RespostaDto();
+        dto.descricao = resposta.descricao;
+        return dto;
     }
 }

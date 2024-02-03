@@ -15,24 +15,25 @@ export class RespostaController {
 
     @Post('questionarios/:id/respostas')
     @ApiOkResponse({type: RespostaDto})
-    create(@Param('id') id: string, @Body() dto: RespostaDto) {
-        const resposta = new Resposta(dto);
-        return this.service.create(resposta);
+    async create(@Param('id') id: string, @Body() dto: RespostaDto) {
+        let resposta = new Resposta(dto);
+        resposta = await this.service.create(resposta);
+        return RespostaConverter.toDto(resposta);
     }
 
     @Get('questionarios/:id/respostas')
     @ApiOkResponse({type: [RespostaDto]})
-    findAll() {
+    async findAll() {
         const list = await this.service.findAll();
         return RespostaConverter.toDtoList(list);
     }
 
     @Patch('questionarios/:id/respostas/:id')
     @ApiOkResponse({type: RespostaDto})
-    update(@Param('id') id: string, @Body() dto: RespostaDto) {
+    async update(@Param('id') id: string, @Body() dto: RespostaDto) {
         let resposta = new Resposta(dto);
         resposta = await this.service.update(id, resposta);
-        return new RespostaDto(resposta);
+        return RespostaConverter.toDto(resposta);
     }
 
     @Delete('questionarios/:id/respostas/:id')

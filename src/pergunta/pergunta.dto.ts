@@ -7,8 +7,4 @@ export class PerguntaDto {
     @IsString()
     @MaxLength(255,{message: 'Tamanho máximo é de 255 caracteres'})
     descricao: string;
-
-    constructor(descricao: string) {
-        this.descricao = descricao;
-    }
 }

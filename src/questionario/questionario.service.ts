@@ -11,9 +11,14 @@ export class QuestionarioService {
     ) {
     }
 
-    async create(questionario: Questionario): Promise<Questionario> {
+    async create(questionario: Questionario, perguntas: Pergunta[]): Promise<Questionario> {
         try {
-            return await questionario.save();
+            questionario = await questionario.save();
+            await Promise.all(perguntas.map(pergunta => {
+                pergunta.questionarioId = questionario.id;
+                pergunta.save();
+            }));
+            return questionario;
         } catch (err) {
             throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -26,7 +31,10 @@ export class QuestionarioService {
     }
 
     async findOne(id: string): Promise<Questionario> {
-        const questionario = await this.repository.findByPk<Questionario>(id);
+        const questionario = await this.repository.findByPk<Questionario>(id,{
+            rejectOnEmpty: undefined,
+            include: [Pergunta]
+        });
         if (!questionario) {
             throw new HttpException('Questionário não encontrado.', HttpStatus.NOT_FOUND);
         }

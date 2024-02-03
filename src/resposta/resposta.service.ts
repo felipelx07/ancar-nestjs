@@ -10,9 +10,8 @@ export class RespostaService {
     ) {
     }
 
-    async create(dto: Resposta): Promise<Resposta> {
+    async create(resposta: Resposta): Promise<Resposta> {
         try {
-            const resposta = new Resposta(dto);
             return await resposta.save();
         } catch (err) {
             throw new HttpException(err, HttpStatus.INTERNAL_SERVER_ERROR);

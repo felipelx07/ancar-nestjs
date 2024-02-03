@@ -8,7 +8,7 @@ export class Resposta extends Model<Resposta> {
         autoIncrement: true,
         primaryKey: true,
     })
-    id: string;
+    id: number;
 
     @Column
     descricao: string;

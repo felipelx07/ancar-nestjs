@@ -4,6 +4,7 @@ import {AuthGuard} from "../auth/auth.guard";
 import {QuestionarioService} from "./questionario.service";
 import {QuestionarioDto} from "./questionario.dto";
 import {QuestionarioConverter} from "./questionario.converter";
+import {PerguntaConverter} from "../pergunta/pergunta.converter";
 
 @ApiTags('questionarios')
 @Controller('questionarios')
@@ -14,9 +15,10 @@ export class QuestionarioController {
 
     @Post()
     @ApiOkResponse({type: QuestionarioDto})
-    create(@Body() dto: QuestionarioDto) {
-        const questionario = QuestionarioConverter.toEntity(dto);
-        return this.service.create(questionario);
+    async create(@Body() dto: QuestionarioDto) {
+        let questionario = QuestionarioConverter.toEntity(dto);
+        questionario = await this.service.create(questionario, PerguntaConverter.toEntityList(dto));
+        return QuestionarioConverter.toEntity(questionario);
     }
 
     @Get()
@@ -30,7 +32,7 @@ export class QuestionarioController {
     @ApiOkResponse({type: QuestionarioDto})
     async findOne(@Param('id') id: string) {
         const questionario = await this.service.findOne(id);
-        return new QuestionarioDto(questionario);
+        return QuestionarioConverter.toDto(questionario);
     }
 
     @Patch(':id')
@@ -38,7 +40,7 @@ export class QuestionarioController {
     async update(@Param('id') id: string, @Body() dto: QuestionarioDto) {
         let questionario = QuestionarioConverter.toEntity(dto);
         questionario = await this.service.update(id, questionario);
-        return new QuestionarioDto(questionario);
+        return QuestionarioConverter.toDto(questionario);
     }
 
     @Delete(':id')

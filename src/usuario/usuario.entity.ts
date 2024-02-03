@@ -7,7 +7,7 @@ export class Usuario extends Model<Usuario> {
         autoIncrement: true,
         primaryKey: true,
     })
-    id: string;
+    id: number;
 
     @Column
     nome: string;

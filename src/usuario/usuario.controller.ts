@@ -14,16 +14,16 @@ export class UsuarioController {
 
     @Post()
     @ApiOkResponse({type: UsuarioDto})
-    create(@Body() userDto: UsuarioDto) {
-        let user = new Usuario(userDto);
-        user = await this.service.create(user);
-        return new UsuarioDto(user);
+    async create(@Body() userDto: UsuarioDto) {
+        let usuario = new Usuario(userDto);
+        usuario = await this.service.create(usuario);
+        return UsuarioConverter.toDto(usuario);
     }
 
     @UseGuards(AuthGuard)
     @Get()
     @ApiOkResponse({type: [UsuarioDto]})
-    findAll() {
+    async findAll() {
         const list = await this.service.findAll();
         return UsuarioConverter.toDtoList(list);
     }
@@ -31,9 +31,9 @@ export class UsuarioController {
     @UseGuards(AuthGuard)
     @Get(':id')
     @ApiOkResponse({type: UsuarioDto})
-    findOne(@Param('id') id: string) {
+    async findOne(@Param('id') id: string) {
         const usuario = await this.service.findOne(id);
-        return new UsuarioDto(usuario);
+        return UsuarioConverter.toDto(usuario);
     }
 
     @UseGuards(AuthGuard)

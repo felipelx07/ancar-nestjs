@@ -9,7 +9,7 @@ export class Pergunta extends Model<Pergunta> {
         autoIncrement: true,
         primaryKey: true,
     })
-    id: string;
+    id: number;
 
     @Column
     descricao: string;

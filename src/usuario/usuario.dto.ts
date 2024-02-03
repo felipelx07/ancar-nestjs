@@ -1,6 +1,5 @@
 import {ApiProperty} from "@nestjs/swagger";
 import {IsNotEmpty, IsString, MaxLength} from "class-validator";
-import {Usuario} from "./usuario.entity";
 
 export class UsuarioDto {
     @ApiProperty()
@@ -20,10 +19,4 @@ export class UsuarioDto {
     @IsString()
     @MaxLength(11,{message: 'Tamanho máximo é de 11 caracteres'})
     cpf: string;
-
-    constructor(entity: Usuario) {
-        this.nome = entity.nome;
-        this.senha = entity.senha;
-        this.cpf = entity.cpf;
-    }
 }

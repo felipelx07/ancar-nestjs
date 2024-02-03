@@ -20,11 +20,5 @@ export class QuestionarioDto {
     @ApiProperty()
     @IsNotEmpty()
     @IsArray()
-    perguntas?: PerguntaDto[]
-
-    constructor(entity: Questionario) {
-        this.nome = entity.nome;
-        this.descricao = entity.descricao;
-        this.perguntas = entity.perguntas.map(pergunta => new PerguntaDto(pergunta.descricao));
-    }
+    perguntas: PerguntaDto[] = [];
 }
