@@ -9,6 +9,10 @@ export class QuestionarioDto {
     id: string;
 
     @ApiProperty()
+    @IsOptional()
+    data: string;
+
+    @ApiProperty()
     @IsNotEmpty()
     @IsString()
     @MaxLength(255, {message: 'Tamanho máximo é de 255 caracteres'})

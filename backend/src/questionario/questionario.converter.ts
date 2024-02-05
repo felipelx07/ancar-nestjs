@@ -14,8 +14,10 @@ export class QuestionarioConverter {
     static toDto(entity): QuestionarioDto {
         let dto = new QuestionarioDto();
         dto.id = entity.id;
+        dto.data =  this.formatDate(entity.data);
         entity.perguntas?.map(pergunta => {
             let perguntaDto = new PerguntaDto();
+            perguntaDto.id = pergunta.id;
             perguntaDto.descricao = pergunta.descricao;
             dto.perguntas.push(perguntaDto);
         });
@@ -31,5 +33,12 @@ export class QuestionarioConverter {
             dtoList.push(questionarioDto);
         });
         return dtoList;
+    }
+
+    private static formatDate(date: Date): string {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
     }
 }

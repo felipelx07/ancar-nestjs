@@ -23,8 +23,8 @@ export class RespostaController {
 
     @Get('questionarios/:id/respostas')
     @ApiOkResponse({type: [RespostaDto]})
-    async findAll() {
-        const list = await this.service.findAll();
+    async findAll(@Param('id') id: string) {
+        const list = await this.service.findAll(id);
         return RespostaConverter.toDtoList(list);
     }
 

@@ -13,6 +13,7 @@ export class RespostaConverter {
 
     static toDto(resposta: Resposta): RespostaDto {
         let dto = new RespostaDto();
+        dto.perguntaId = resposta.perguntaId;
         dto.descricao = resposta.descricao;
         return dto;
     }

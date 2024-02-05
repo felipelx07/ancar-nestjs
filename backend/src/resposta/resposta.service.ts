@@ -1,6 +1,8 @@
 import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectModel} from "@nestjs/sequelize";
 import {Resposta} from "./resposta.entity";
+import {Pergunta} from "../pergunta/pergunta.entity";
+import {Questionario} from "../questionario/questionario.entity";
 
 @Injectable()
 export class RespostaService {
@@ -18,8 +20,24 @@ export class RespostaService {
         }
     }
 
-    async findAll(): Promise<Resposta[]> {
-        return this.repository.findAll<Resposta>();
+    async findAll(questionarioId): Promise<Resposta[]> {
+        return this.repository.findAll<Resposta>({
+            include: [
+                {
+                    model: Pergunta,
+                    required: true,
+                    include: [
+                        {
+                            model: Questionario,
+                            required: true,
+                            where: {
+                                id: questionarioId
+                            }
+                        },
+                    ],
+                },
+            ],
+        });
     }
 
     private async findOne(id: string): Promise<Resposta> {
