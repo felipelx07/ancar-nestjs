@@ -48,9 +48,9 @@ export class RespostaService {
         return resposta;
     }
 
-    async update(id: string, respostaUpdated: Resposta) {
+    async update(id: string, toUpdate: Resposta) {
         const resposta = await this.findOne(id);
-        resposta.descricao = respostaUpdated.descricao || resposta.descricao;
+        resposta.descricao = toUpdate.descricao || resposta.descricao;
         try {
             return await resposta.save();
         } catch (err) {

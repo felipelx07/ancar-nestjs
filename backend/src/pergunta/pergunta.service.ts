@@ -32,9 +32,9 @@ export class PerguntaService {
         return pergunta;
     }
 
-    async update(id: string, dto: PerguntaDto) {
+    async update(id: string, toUpdate: PerguntaDto) {
         const pergunta = await this.findOne(id);
-        pergunta.descricao = dto.descricao || pergunta.descricao;
+        pergunta.descricao = toUpdate.descricao || pergunta.descricao;
         try {
             return await pergunta.save();
         } catch (err) {

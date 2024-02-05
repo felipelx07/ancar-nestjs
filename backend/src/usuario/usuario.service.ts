@@ -53,11 +53,11 @@ export class UsuarioService {
         return user;
     }
 
-    async update(id: string, usuarioUpdated: Usuario) {
+    async update(id: string, toUpdate: Usuario) {
         const user = await this.findOne(id);
 
-        user.nome = usuarioUpdated.nome || user.nome;
-        user.senha = usuarioUpdated.senha || user.senha;
+        user.nome = toUpdate.nome || user.nome;
+        user.senha = toUpdate.senha || user.senha;
 
         try {
             return await user.save();

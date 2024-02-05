@@ -41,8 +41,11 @@ export class QuestionarioService {
         return questionario;
     }
 
-    async update(id: string, questionario: Questionario) {
-        await this.findOne(id);
+    async update(id: string, toUpdate: Questionario, perguntas: Pergunta[]) {
+        const questionario = await this.findOne(id);
+        questionario.nome = toUpdate.nome;
+        questionario.descricao = toUpdate.nome;
+        questionario.perguntas = perguntas;
 
         try {
             return await questionario.save();

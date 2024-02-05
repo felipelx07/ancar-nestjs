@@ -20,7 +20,9 @@ export class Pergunta extends Model<Pergunta> {
     @BelongsTo(() => Questionario)
     questionario: Questionario;
 
-    @HasMany(() => Resposta)
+    @HasMany(() => Resposta, {
+        onDelete: 'cascade'
+    })
     respostas: Resposta[];
 
 }

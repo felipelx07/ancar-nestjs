@@ -40,7 +40,7 @@ export class QuestionarioController {
     @ApiOkResponse({type: QuestionarioDto})
     async update(@Param('id') id: string, @Body() dto: QuestionarioDto) {
         let questionario = QuestionarioConverter.toEntity(dto);
-        questionario = await this.service.update(id, questionario);
+        questionario = await this.service.update(id, questionario, PerguntaConverter.toEntityList(dto));
         return QuestionarioConverter.toDto(questionario);
     }
 

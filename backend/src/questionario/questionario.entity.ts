@@ -19,7 +19,9 @@ export class Questionario extends Model<Questionario> {
     @Column
     descricao: string;
 
-    @HasMany(() => Pergunta)
+    @HasMany(() => Pergunta,{
+        onDelete: 'cascade'
+    })
     perguntas: Pergunta[];
 
 }
