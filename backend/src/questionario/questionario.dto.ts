@@ -1,9 +1,12 @@
 import {ApiProperty} from "@nestjs/swagger";
-import {IsArray, IsNotEmpty, IsString, MaxLength} from "class-validator";
+import {IsArray, IsNotEmpty, IsOptional, IsString, MaxLength} from "class-validator";
 import {PerguntaDto} from "../pergunta/pergunta.dto";
-import {Questionario} from "./questionario.entity";
 
 export class QuestionarioDto {
+
+    @ApiProperty()
+    @IsOptional()
+    id: string;
 
     @ApiProperty()
     @IsNotEmpty()

@@ -13,7 +13,8 @@ export class QuestionarioConverter {
 
     static toDto(entity): QuestionarioDto {
         let dto = new QuestionarioDto();
-        entity.perguntas.map(pergunta => {
+        dto.id = entity.id;
+        entity.perguntas?.map(pergunta => {
             let perguntaDto = new PerguntaDto();
             perguntaDto.descricao = pergunta.descricao;
             dto.perguntas.push(perguntaDto);

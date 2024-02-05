@@ -11,6 +11,7 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Post()
     signIn(@Body() signInDto: Record<string, any>) {
-        return this.authService.signIn(signInDto.cpf, signInDto.senha);
+        const cpf = signInDto.cpf.replace(/\.|-/gm, '');
+        return this.authService.signIn(cpf, signInDto.senha);
     }
 }

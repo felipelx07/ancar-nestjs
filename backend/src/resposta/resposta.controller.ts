@@ -8,11 +8,11 @@ import {RespostaConverter} from "./resposta.converter";
 
 @ApiTags('respostas')
 @Controller('/')
-@UseGuards(AuthGuard)
 export class RespostaController {
     constructor(private readonly service: RespostaService) {
     }
 
+    @UseGuards(AuthGuard)
     @Post('questionarios/:id/respostas')
     @ApiOkResponse({type: RespostaDto})
     async create(@Param('id') id: string, @Body() dto: RespostaDto) {
@@ -28,6 +28,7 @@ export class RespostaController {
         return RespostaConverter.toDtoList(list);
     }
 
+    @UseGuards(AuthGuard)
     @Patch('questionarios/:id/respostas/:id')
     @ApiOkResponse({type: RespostaDto})
     async update(@Param('id') id: string, @Body() dto: RespostaDto) {
@@ -36,6 +37,7 @@ export class RespostaController {
         return RespostaConverter.toDto(resposta);
     }
 
+    @UseGuards(AuthGuard)
     @Delete('questionarios/:id/respostas/:id')
     @ApiOkResponse()
     remove(@Param('id') id: string) {
